@@ -29,3 +29,7 @@ Back-Of-The-Envelope Calculation：是指不用笔，仅用一种大脑就能快
 考察队全国人口普查数据进行排序，n = 10^9
 
 ![图2](../../assets/analysis/Snipaste_2024-06-03_21-55-27.png)
+
+---
+
+[父目录](../ReadME.md)
