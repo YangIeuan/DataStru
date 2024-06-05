@@ -3,6 +3,7 @@ target_sources(
     PUBLIC
     iter_find.cpp
     iter_sum.cpp
+    recurse_find.cpp
     recurse_sum.cpp
     recurse_reverse.cpp
 )
