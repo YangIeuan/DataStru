@@ -1,3 +1,4 @@
+add_subdirectory(dynamic_program)
 add_subdirectory(iter_and_recurse)
 add_subdirectory(print)
 add_subdirectory(swap)

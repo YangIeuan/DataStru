@@ -28,6 +28,27 @@ def Iter_find_two_max
 
 ### 减而治之（Decrease and Concur）
 
+#### fibnacci问题的递归解法
+
+fibnacci问题是典型的可以用递归方法进行求解的，因为其公式定义就是递归定义的：$`F_n = F_{n-1} + F_{n-2}`$，其中$`F_1 = 1, F_2 = 1`$。
+
+```cpp
+def RecurFib(int n)
+{
+    return (n > 2) ? Fib(n-2) + Fib(n-1) : n;
+}
+```
+
+但是这个方法时间复杂度非常的高，我们分析一下：
+
+递推式：$`T_n = T_{n-1} + T_{n-2} \approx (\frac{1 + \sqrt{5}}{2})^n`$，这个结果是非多项式的，可以认为这种算法是一种非常差的方法。
+
+封笔估算时间：$`(\frac{1 + \sqrt{5}}{2})^{36} \approx 2^{25} `$；$`(\frac{1 + \sqrt{5}}{2})^{43} \approx 2^{30} \approx 10^9flop \approx 1sec`$
+
+$`\Phi^5 \approx 10`$，其中$`\Phi = \frac{1 + \sqrt{5}}{2}`$
+
+递归版本的Fib算法低效的原因在于各个递归实例均被大量重复的调用。
+
 #### 数组求和
 
 为求解一个大规模的问题，可以：将其划分为两个子问题：其一平凡，另一规模缩减，分别求解子问题。由子问题的解，得到原始问题的解。这样的策略就是减而治之。
@@ -136,3 +157,9 @@ std::pair<int, int> RecurFindTwoNumDivideConcur(int *A, int lo, int hi)
     return ret;
 }
 ```
+
+### 记忆递归法
+
+将已经计算过的实例结果制表备查，可以减少一些重复的递归实例计算。从而降低递归的时间复杂度。
+
+注意：更好的方法是用动态规划。
