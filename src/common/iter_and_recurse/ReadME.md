@@ -82,3 +82,57 @@ int RecurSumDivideConcur(int A[], int lo, int hi)
 ```
 
 分而治之方法的递归跟踪图一般都是二叉树，对应的时间复杂度就是2的几何级数，而几何级数的阶数和数的叶子结点个数同阶层，从而可以知道叶子结点的个数就是其时间复杂度。
+
+#### 数组寻找最大的两个元素
+
+该问题使用分而治之地方法可以有效降低计算复杂度：
+
+思路如下：，将原问题分解为两个规模为原问题一半的子问题，子问题各自返回自己找到的最大和次大值，再原问题中将两个子问题返回的四个值进行比较，从而找到最终的结果。
+
+分：对区间折半
+合：对子问题返回的值进行比较
+
+退换情形（边界情形）：当区间内元素个数为2、3时不能在继续分，因此这两种情况为边界情形。对他们的处理就是简单的比较并返回找到的结果。
+```cpp
+std::pair<int, int> RecurFindTwoNumDivideConcur(int *A, int lo, int hi)
+{
+    if (hi - lo == 1) {
+        int first = (A[lo] > A[hi] ? A[lo] : A[hi]);
+        int second = A[lo];
+        if (first == second) {
+            second = A[hi];
+        }
+        return std::make_pair(first, second);
+    }
+    if (hi - lo == 2) {
+        std::pair<int, int> L = RecurFindTwoNumDivideConcur(A, lo, lo + 1);
+        if (L.first < A[hi]) {
+            L.second = L.first;
+            L.first = A[hi];
+        } else if (L.second < A[hi]) {
+            L.second = A[hi];
+        }
+        return L;
+    }
+    int mi = (lo + hi) >> 1;
+    std::pair<int, int> L = RecurFindTwoNumDivideConcur(A, lo, mi);
+    std::pair<int, int> R = RecurFindTwoNumDivideConcur(A, mi + 1, hi);
+    std::pair<int, int> ret = {0, 0};
+    if (L.first > R.first) {
+        ret.first = L.first;
+        if (L.second > R.first) {
+            ret.second = L.second;
+        } else {
+            ret.second = R.first;
+        }
+    } else {
+        ret.first = R.first;
+        if (R.second > L.first) {
+            ret.second = R.second;
+        } else {
+            ret.second = L.first;
+        }
+    }
+    return ret;
+}
+```
